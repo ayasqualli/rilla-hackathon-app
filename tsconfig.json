@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                           // Updated target to ESNext
-    "module": "CommonJS",                         // Set to CommonJS
-    "strict": true,                               // Strict mode for type-checking
+    "target": "ESNext",                           // Updated target to ESNext for the latest ECMAScript features
+    "module": "CommonJS",                         // Set to CommonJS for Node.js compatibility
+    "strict": true,                               // Enable strict mode for type-checking
     "esModuleInterop": true,                      // Ensures compatibility with CommonJS modules
     "skipLibCheck": true,                         // Skip type checking of declaration files
     "forceConsistentCasingInFileNames": true,     // Ensure file names are consistently cased
@@ -11,6 +11,11 @@
   },
   "include": [
     "src/**/*.ts",                                // Include all TypeScript files in src
+    "src/**/*.test.ts",                           // Include TypeScript test files
     "src/types.d.ts"                              // Include the custom types definition file
+  ],
+  "exclude": [
+    "node_modules",                              // Exclude node_modules directory
+    "**/*.spec.ts"                               // Exclude test files from being compiled
   ]
 }
