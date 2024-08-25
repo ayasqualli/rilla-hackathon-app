@@ -2,7 +2,8 @@ import request from 'supertest';
 import express from 'express';
 import path from 'path';
 import attachmentsRouter from '../src/routes/attachments';
-import upload from './multerConfig';  // Import your custom multer configuration
+import upload from '../src/middleware/uploadMiddleware';  // Adjust path if needed
+import { uploadAttachment, getAttachmentById } from '../src/services/attachmentService';
 
 const app = express();
 
@@ -10,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 // Use the multer middleware only for the upload route
-app.post('/upload', upload.single('audio'), (req, res) => {
+app.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
   }
@@ -24,7 +25,7 @@ describe('Attachments API', () => {
   it('should upload a file', async () => {
     const response = await request(app)
       .post('/upload')
-      .attach('audio', Buffer.from('file content'), 'test.mp3'); // Mock file upload
+      .attach('file', Buffer.from('file content'), 'test.mp3'); // Mock file upload
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('message', 'File uploaded successfully');
@@ -37,11 +38,11 @@ describe('Attachments API', () => {
     const mockId = 'mock-id'; // Replace with actual mock ID setup
     const mockFileUrl = `http://localhost:3000/uploads/${mockId}`;
 
-    // Mock response setup if fetch is used
-    jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn().mockResolvedValue({ fileUrl: mockFileUrl, commentId: mockId }),
-      status: 200
-    } as unknown as Response);
+    // Mock the service function directly
+    jest.spyOn(attachmentService, 'getAttachmentById').mockResolvedValue({
+      fileUrl: mockFileUrl,
+      commentId: mockId,
+    });
 
     const response = await request(app).get(`/attachments/${mockId}`);
 

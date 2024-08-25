@@ -1,4 +1,4 @@
-import db from './init-db'; // Adjust the path if necessary
+import db from './database/uploads/local.db/init-db'; // Adjust the path if necessary
 
 // SQL statements to create tables
 const createTables = () => {

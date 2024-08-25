@@ -1,11 +1,13 @@
-import db from '../databaseConfig';
+import db from '../database/uploads/local.db/init-db';
 
-export const getAllTranscripts = async () => {
-  const stmt = db.prepare('SELECT * FROM transcripts');
-  return stmt.all();
+// Get all transcripts
+export const getAllTranscripts = () => {
+  const stmt = db.prepare('SELECT * FROM Transcripts');
+  return stmt.all(); // Returns an array of all transcripts
 };
 
-export const getTranscriptById = async (id: string) => {
-  const stmt = db.prepare('SELECT * FROM transcripts WHERE transcriptId = ?');
-  return stmt.get(id);
+// Get transcript by ID
+export const getTranscriptById = (id: number) => {
+  const stmt = db.prepare('SELECT * FROM Transcripts WHERE transcriptId = ?');
+  return stmt.get(id); // Returns a single transcript or undefined if not found
 };
