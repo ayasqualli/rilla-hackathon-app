@@ -1,21 +1,25 @@
 {
   "compilerOptions": {
-    "target": "ESNext",                           // Updated target to ESNext for the latest ECMAScript features
-    "module": "CommonJS",                         // Set to CommonJS for Node.js compatibility
-    "strict": true,                               // Enable strict mode for type-checking
-    "esModuleInterop": true,                      // Ensures compatibility with CommonJS modules
+    "target": "ESNext",                           // Latest ECMAScript features
+    "module": "CommonJS",                         // Node.js compatibility
+    "strict": true,                               // Strict type-checking options
+    "esModuleInterop": true,                      // Compatibility with CommonJS modules
     "skipLibCheck": true,                         // Skip type checking of declaration files
-    "forceConsistentCasingInFileNames": true,     // Ensure file names are consistently cased
+    "forceConsistentCasingInFileNames": true,     // Consistent casing of file names
     "outDir": "./dist",                           // Output directory for compiled files
-    "rootDir": "./src"                            // Root directory of input files
+    "rootDir": "./src",                           // Root directory of input files
+    "baseUrl": "./",                              // Base directory for resolving non-relative module names
+    "paths": {                                    // Path mappings for module resolution
+      "*": ["node_modules/*", "src/types/*"]
+    }
   },
   "include": [
-    "src/**/*.ts",                                // Include all TypeScript files in src
+    "src/**/*.ts",                                // Include all TypeScript files
     "src/**/*.test.ts",                           // Include TypeScript test files
-    "src/types.d.ts"                              // Include the custom types definition file
+    "src/types.d.ts"                              // Custom types definition file
   ],
   "exclude": [
     "node_modules",                              // Exclude node_modules directory
-    "**/*.spec.ts"                               // Exclude test files from being compiled
+    "**/*.spec.ts"                               // Exclude .spec.ts files from compilation
   ]
 }
